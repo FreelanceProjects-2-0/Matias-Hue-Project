@@ -3,9 +3,9 @@ import { DateTime } from 'luxon';
 import store from '@/store/index';
 import router from '@/router';
 
-const service = {
+const apiService = {
   api: process.env.VUE_APP_API_URL,
-  userId: process.env.HUE_USERNAME_ID,
+  userId: process.env.VUE_APP_API_USERID,
 
   async getOptions(inOptions) {
     if (!inOptions?.noAuth && store.getters.user && DateTime.fromISO(store.getters.user.expires) < DateTime.now()) {
@@ -79,7 +79,7 @@ const service = {
   },
 
   async post(endpoint, payload, options) {
-    return this.handleResponse(axios.post(`${this.api}/${endpoint}`, payload, await this.getOptions(options)));
+    return this.handleResponse(axios.post(`${this.api}/${this.userId}/${endpoint}`, payload, await this.getOptions(options)));
   },
   postJsonString(endpoint, payload, options) {
     return this.post(endpoint, JSON.stringify(payload), {
@@ -90,13 +90,13 @@ const service = {
     });
   },
   async get(endpoint, payload) {
-    return this.handleResponse(axios.get(`${this.api}/${endpoint}`, await this.getOptions(payload)));
+    return this.handleResponse(axios.get(`${this.api}/${this.userId}/${endpoint}`, await this.getOptions(payload)));
   },
   async put(endpoint, payload) {
-    return this.handleResponse(axios.put(`${this.api}/${endpoint}`, payload, await this.getOptions()));
+    return this.handleResponse(axios.put(`${this.api}/${this.userId}/${endpoint}`, payload, await this.getOptions()));
   },
   async delete(endpoint, payload) {
-    return this.handleResponse(axios.delete(`${this.api}/${endpoint}`, await this.getOptions(payload)));
+    return this.handleResponse(axios.delete(`${this.api}/${this.userId}/${endpoint}`, await this.getOptions(payload)));
   },
 
   // Endpoints
@@ -120,13 +120,13 @@ const service = {
     });
   },
 
-  resetPasswordToken(options) {
-    return this.post('auth/resetPasswordToken', options, { noAuth: true });
-  },
-
   // #endregion Auth
 
   // #region Getters
+
+  getLights() {
+    return this.get('lights');
+  },
 
   // #endregion Getters
 
@@ -135,4 +135,4 @@ const service = {
   // #endregion Setters
 };
 
-export default service;
+export default apiService;
