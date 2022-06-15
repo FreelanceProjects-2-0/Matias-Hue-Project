@@ -1,15 +1,97 @@
 <template>
-  <v-container fluid><h3>list</h3></v-container>
+  <v-container fluid>
+    <h3>Lys i huset</h3>
+    <v-container fluid class="navbar d-flex flex-row">
+      <v-col cols="2">
+        <v-select v-model="lightShown" class="ma-0 pa-0" :items="lightStates" hide-details label="Vælg hvilke lys der skal vises"></v-select>
+      </v-col>
+    </v-container>
+    <v-data-table :items="filterLights" :headers="lightListHeaders">
+      <template #[`item.state.on`]="{ item }">
+        {{ item.state.on ? 'Tændt' : 'Slukket' }}
+      </template>
+      <template #[`item.state.color`]="{ item }">
+        {{ item.state.xy ? 'XY : ' + item.state.xy : 'Hvid' }}
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script>
 import apiService from '../services/apiService';
 
 export default {
+  data: () => ({
+    lights: [],
+    lightShown: 0,
+
+    lightStates: [
+      {
+        text: 'Alle',
+        value: 0,
+      },
+      {
+        text: 'Tændt',
+        value: 1,
+      },
+      {
+        text: 'Sluket',
+        value: 2,
+      },
+    ],
+
+    lightListHeaders: [
+      {
+        text: 'Id',
+        value: 'id',
+        width: '5vw',
+      },
+      {
+        text: 'Navn',
+        value: 'name',
+        width: '15vw',
+      },
+      {
+        text: 'Produkt type',
+        value: 'productname',
+        width: '15vw',
+      },
+      {
+        text: 'Farve',
+        value: 'state.color',
+        width: '15vw',
+      },
+      {
+        text: 'Lysstyrke',
+        value: 'state.bri',
+        width: '15vw',
+      },
+      {
+        text: 'Tilstand',
+        value: 'state.on',
+        width: '5vw',
+      },
+    ],
+  }),
+  computed: {
+    filterLights() {
+      if (this.lightShown == 1) {
+        return this.lights.filter((x) => x.state.on == true);
+      } else if (this.lightShown == 2) {
+        return this.lights.filter((x) => x.state.on == false);
+      }
+      return this.lights;
+    },
+  },
   methods: {
     async getLights() {
-      let list = await apiService.getLights();
-      console.log('list', list);
+      let response = await apiService.getLights();
+      this.lights = Object.keys(response).map((key) => {
+        let test = response[key];
+        test.id = key;
+        return response[key];
+      });
+      console.log('Lights', this.lights);
     },
   },
   created() {
