@@ -2,23 +2,5 @@
 
 ## Project setup
 ```
-npm install
+The plan is to make integration both with Philips Hue, Spotify AND Sonos to manage lights and music.
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
