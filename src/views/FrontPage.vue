@@ -15,9 +15,7 @@ export default {
   },
   watch: {},
   methods: {},
-  mounted() {
-    this.showLoginDialog(true);
-  },
+  mounted() {},
   created() {},
 };
 </script>

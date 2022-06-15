@@ -1,10 +1,15 @@
 <template>
-  <v-container fluid><h1>taaaa</h1></v-container>
+  <v-container fluid>
+    <h1>taaaa</h1>
+    <LightListVue />
+  </v-container>
 </template>
 
 <script>
+import LightListVue from '../components/LightList.vue';
 export default {
   name: 'AboutPage',
+  components: { LightListVue },
 };
 </script>
 
