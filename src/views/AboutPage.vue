@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <h1>taaaa</h1>
     <LightListVue />
   </v-container>
 </template>
