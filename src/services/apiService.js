@@ -31,6 +31,7 @@ const apiService = {
     }
   },
   handleResponseError(err) {
+    console.log('err', err);
     if (err?.response?.status === 401) {
       // not authenticated, consider user logged out
       store.dispatch('LOGOUT');
@@ -124,6 +125,9 @@ const apiService = {
 
   // #region Getters
 
+  getLight(light_id) {
+    return this.get(`lights/${light_id}`);
+  },
   getLights() {
     return this.get('lights');
   },
@@ -131,6 +135,15 @@ const apiService = {
   // #endregion Getters
 
   // #region Setters
+
+  // https://192.168.0.117/api/spGqyGwqxoNNX72rAjqUxtR6wLXwk1AtJW7kDqPy/lights/2/state
+  turnLightOn(light_id) {
+    return this.put(`lights/${light_id}/state`, { on: true });
+  },
+
+  turnLightOff(light_id) {
+    return this.put(`lights/${light_id}/state`, { on: false });
+  },
 
   // #endregion Setters
 };
