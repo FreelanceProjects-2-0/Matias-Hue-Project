@@ -153,10 +153,9 @@ export default {
       }
       this.getLights();
     },
-
     toggleGroup(light) {
       if (this.lightGroup.some((l) => l.id === light.id)) {
-        this.lightGroup = this.lightGroup.filter((x) => x != light);
+        this.lightGroup = this.lightGroup.filter((x) => x.id != light.id);
       } else {
         this.lightGroup.push(light);
       }
