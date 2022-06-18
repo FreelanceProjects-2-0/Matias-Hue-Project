@@ -1,16 +1,10 @@
 <template>
-  <v-app-bar class="navbar" app>
-    <v-row no-gutters>
-      <v-col cols="2" class="d-flex flex-row align-center">
-        <v-toolbar-title class="mx-auto">Matias Hue</v-toolbar-title>
-      </v-col>
-      <v-col cols="9">
-        <v-tabs fixed-tabs center-active color="activeButton" background-color="navbar">
-          <v-tab :to="{ name: 'Home' }">Home</v-tab>
-          <v-tab :to="{ name: 'About' }">About</v-tab>
-        </v-tabs>
-      </v-col>
-    </v-row>
+  <v-app-bar app dense>
+    <v-tabs fixed-tabs center-active color="activeButton" background-color="navbar">
+      <v-tab :to="{ name: 'Home' }">Home</v-tab>
+      <v-tab :to="{ name: 'Lights' }">Lys</v-tab>
+      <v-tab>Grupper</v-tab>
+    </v-tabs>
   </v-app-bar>
 </template>
 
