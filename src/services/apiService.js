@@ -4,7 +4,7 @@ import store from '@/store/index';
 import router from '@/router';
 
 const apiService = {
-  api: process.env.VUE_APP_API_URL,
+  api: process.env.VUE_APP_API2_URL,
   userId: process.env.VUE_APP_API_USERID,
 
   async getOptions(inOptions) {
