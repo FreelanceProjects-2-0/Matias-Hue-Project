@@ -20,6 +20,51 @@ const util = {
       },
     ];
   },
+  translateGroupClasses(text) {
+    switch (text) {
+      case text == 'Living room':
+        return 'Living room';
+      case text == 'Kitchen':
+        return 'Køkken';
+      case text == 'Dining':
+        return 'Dining';
+      case text == 'Bedroom':
+        return 'Bedroom';
+      case text == 'Kids bedroom':
+        return 'Kids bedroom';
+      case text == 'Bathroom':
+        return 'Bathroom';
+      case text == 'Nursery':
+        return 'Nursery';
+
+      case text == 'Recreation':
+        return 'Recreation';
+      case text == 'Office':
+        return 'Office';
+      case text == 'Gym':
+        return 'Gym';
+      case text == 'Hallway':
+        return 'Hallway';
+      case text == 'Toilet':
+        return 'Toilet';
+      case text == 'Front door':
+        return 'Front door';
+      case text == 'Garage':
+        return 'Garage';
+
+      case text == 'Terrace':
+        return 'Terrace';
+      case text == 'Garden':
+        return 'Garden';
+      case text == 'Driveway':
+        return 'Driveway';
+      case text == 'Carport':
+        return 'Carport';
+
+      default:
+        return 'Other';
+    }
+  },
 
   /**
    * ```

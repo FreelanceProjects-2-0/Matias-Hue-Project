@@ -128,8 +128,13 @@ const apiService = {
   getLight(light_id) {
     return this.get(`lights/${light_id}`);
   },
+
   getLights() {
     return this.get('lights');
+  },
+
+  getGroups() {
+    return this.get('groups');
   },
 
   // #endregion Getters
