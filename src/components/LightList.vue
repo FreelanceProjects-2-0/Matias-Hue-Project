@@ -190,6 +190,7 @@ export default {
   },
   created() {
     this.getLights();
+    apiService.test();
   },
 };
 </script>

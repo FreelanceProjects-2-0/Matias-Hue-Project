@@ -38,19 +38,12 @@ export default {
 
   data: () => ({}),
   computed: {
-    ...mapGetters(['globalAlert', 'darkMode']),
+    ...mapGetters(['globalAlert']),
   },
-  watch: {
-    darkMode: {
-      immediate: true,
-      handler(val) {
-        this.$vuetify.theme.dark = val;
-      },
-    },
-  },
+  watch: {},
   methods: {},
   mounted() {
-    this.$vuetify.theme.dark = this.$store.getters.darkMode;
+    this.$vuetify.theme.dark = true;
   },
   created() {},
 };

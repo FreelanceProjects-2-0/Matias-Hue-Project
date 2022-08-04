@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { DateTime } from 'luxon';
 import store from '@/store/index';
 import router from '@/router';
 
@@ -8,22 +7,13 @@ const apiService = {
   userId: process.env.VUE_APP_API_USERID,
 
   async getOptions(inOptions) {
-    if (!inOptions?.noAuth && store.getters.user && DateTime.fromISO(store.getters.user.expires) < DateTime.now()) {
-      console.log('token expired, refreshing');
-
-      const user = await this.refreshAuth(store.getters.user.refreshToken);
-
-      store.commit('updateUser', user);
-    }
-
-    const token = store.getters.authToken;
-
-    if (!inOptions?.noAuth && token) {
+    if (!inOptions?.noAuth) {
       return {
         ...inOptions,
         headers: {
-          Authorization: `Bearer ${token}`,
-          ...inOptions?.headers,
+          'hue-application-key': this.userId,
+          Authorization: `${this.userId}`,
+          'Content-Type': `application/json`,
         },
       };
     } else {
@@ -80,7 +70,7 @@ const apiService = {
   },
 
   async post(endpoint, payload, options) {
-    return this.handleResponse(axios.post(`${this.api}/${this.userId}/${endpoint}`, payload, await this.getOptions(options)));
+    return this.handleResponse(axios.post(`${this.api}/${endpoint}`, payload, await this.getOptions(options)));
   },
   postJsonString(endpoint, payload, options) {
     return this.post(endpoint, JSON.stringify(payload), {
@@ -91,37 +81,20 @@ const apiService = {
     });
   },
   async get(endpoint, payload) {
-    return this.handleResponse(axios.get(`${this.api}/${this.userId}/${endpoint}`, await this.getOptions(payload)));
+    return this.handleResponse(axios.get(`${this.api}/${endpoint}`, await this.getOptions(payload)));
   },
   async put(endpoint, payload) {
-    return this.handleResponse(axios.put(`${this.api}/${this.userId}/${endpoint}`, payload, await this.getOptions()));
+    return this.handleResponse(axios.put(`${this.api}/${endpoint}`, payload, await this.getOptions()));
   },
   async delete(endpoint, payload) {
-    return this.handleResponse(axios.delete(`${this.api}/${this.userId}/${endpoint}`, await this.getOptions(payload)));
+    return this.handleResponse(axios.delete(`${this.api}/${endpoint}`, await this.getOptions(payload)));
   },
 
   // Endpoints
 
-  // #region Auth
-  login(credentials) {
-    return this.post('auth/login', credentials, { noAuth: true });
+  test() {
+    return this.get(`resource/light`);
   },
-
-  refreshAuth(refreshCode) {
-    return this.postJsonString('auth/refresh', refreshCode, { noAuth: true });
-  },
-
-  changePassword(passwordChanges) {
-    return this.post('auth/changePassword', passwordChanges);
-  },
-
-  resetPassword(username) {
-    return this.postJsonString('auth/resetPassword', username, {
-      noAuth: true,
-    });
-  },
-
-  // #endregion Auth
 
   // #region Getters
 
