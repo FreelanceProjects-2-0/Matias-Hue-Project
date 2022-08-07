@@ -4,6 +4,7 @@
       <v-tab :to="{ name: 'Home' }" exact>Home</v-tab>
       <v-tab :to="{ name: 'Lights' }">Lys</v-tab>
       <v-tab :to="{ name: 'Rooms' }">Rum</v-tab>
+      <v-tab :to="{ name: 'Calc' }">Calc</v-tab>
     </v-tabs>
   </v-app-bar>
 </template>

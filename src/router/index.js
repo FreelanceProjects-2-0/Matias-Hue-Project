@@ -26,6 +26,11 @@ const routes = [
         name: 'Rooms',
         component: () => import('@/views/RoomsVue.vue'),
       },
+      {
+        path: '/calc',
+        name: 'Calc',
+        component: () => import('@/views/Calculator.vue'),
+      },
     ],
   },
 ];
