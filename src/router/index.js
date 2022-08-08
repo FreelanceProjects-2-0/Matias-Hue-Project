@@ -17,9 +17,19 @@ const routes = [
         component: () => import('@/views/FrontPage.vue'),
       },
       {
-        path: '/about',
-        name: 'About',
-        component: () => import('@/views/AboutPage.vue'),
+        path: '/lights',
+        name: 'Lights',
+        component: () => import('@/views/LightsVue.vue'),
+      },
+      {
+        path: '/rooms',
+        name: 'Rooms',
+        component: () => import('@/views/RoomsVue.vue'),
+      },
+      {
+        path: '/calc',
+        name: 'Calc',
+        component: () => import('@/views/Calculator.vue'),
       },
     ],
   },
